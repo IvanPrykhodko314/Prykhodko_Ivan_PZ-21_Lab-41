@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { addItem } from './actions/itemActions';
 
-function App() {
+const ItemList = () => {
+  const items = useSelector((state) => state.items);
+  const dispatch = useDispatch();
+
+  const handleAddItem = () => {
+    dispatch(addItem('New Redux Item'));
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <ul>
+        {items.map((item, index) => (
+          <li key={index}>{item}</li>
+        ))}
+      </ul>
+      <button onClick={handleAddItem}>Add Item</button>
     </div>
   );
-}
+};
 
-export default App;
+export default ItemList;
